@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -27,10 +28,11 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Project $project)
+    public function create()
     {
         //
-         return view('admin.projects.create',compact('project'));
+        $types = Type::all();
+         return view('admin.projects.create',compact('types'));
     }
 
     /**
@@ -48,7 +50,8 @@ class ProjectController extends Controller
               'name'=>'required|min:5|max:255|unique:projects,name',
               'summary'=>'nullable|min:10',
               'thumb' => 'nullable|image|max:256',
-              'client_name'=>'nullable|min:5|max:255'
+              'client_name'=>'nullable|min:5|max:255',
+              'type_id'=>'nullable|exists:types,id'
             ]
             );
         $formData=$request->all();
@@ -84,7 +87,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
-        return view(('admin.projects.edit'),compact('project'));
+        $types= Type::all();
+        return view(('admin.projects.edit'),compact('project','types'));
     }
 
     /**
@@ -107,7 +111,8 @@ class ProjectController extends Controller
               ],
               'summary'=>'nullable|min:10',
               'thumb' => 'nullable|image|max:256',
-              'client_name'=>'nullable|min:5|max:255'
+              'client_name'=>'nullable|min:5|max:255',
+              'type_id'=>'nullable|exists:types,id'
             ]
             );
         $formData=$request->all();

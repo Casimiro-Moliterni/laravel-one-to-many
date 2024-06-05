@@ -4,9 +4,16 @@
     <div>
         <strong>Slug :</strong>{{ $project->slug }}
     </div>
-    <div>
-        <img src="{{ asset('storage/' . $project->thumb) }}" alt="{{ $project->name }}">
-    </div>
+    @if ($project->type)
+        <div>
+            <strong>Types:</strong>{{ $project->type->name }}
+        </div> 
+    @endif
+    @if ($project->thumb)
+        <div>
+            <img src="{{ asset('storage/' . $project->thumb) }}" alt="{{ $project->name }}">
+        </div>
+    @endif
     <div class="mt-1">
         <strong>Created at :</strong>{{ $project->created_at }}
     </div>

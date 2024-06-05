@@ -19,6 +19,15 @@
                 <input type="text" class="form-control" id="name" placeholder="Es. Comic.com" name="name"
                     value="{{ old('name') }}">
             </div>
+           <div class="mb-3">
+            <label for="type_id" class="form-label">Types</label>
+            <select class="form-select" aria-label="Default select example" id="type_id" name="type_id">
+                <option selected>Open this select menu</option>
+               @foreach ($types as $type)
+               <option @selected($type->id == old('type_id')) value="{{ $type->id }}">{{ $type->name }}</option>
+               @endforeach
+              </select>
+           </div>
             <div class="mb-3">
                 <label for="thumb" class="form-label">Immagine</label>
                 <input class="form-control" type="file" id="thumb" name="thumb">
